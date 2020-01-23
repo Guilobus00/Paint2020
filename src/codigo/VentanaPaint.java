@@ -6,6 +6,8 @@
 package codigo;
 
 import codigo.formas.Circulo;
+import codigo.formas.Forma;
+import codigo.formas.Pentagono;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -21,10 +23,9 @@ public class VentanaPaint extends javax.swing.JFrame {
     
     Graphics2D bufferGraphics, jpanelGraphics = null;
     
-    int herramientaSeleccionada = 0;
-    
     Circulo miCirculo = null;
-            
+    Forma miForma = null;
+    
     /**
      * Creates new form VentanaPaint
      */
@@ -93,12 +94,6 @@ public class VentanaPaint extends javax.swing.JFrame {
             .addGap(0, 229, Short.MAX_VALUE)
         );
 
-        herramientas1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                herramientas1MousePressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,28 +126,29 @@ public class VentanaPaint extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LienzoMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LienzoMouseDragged
-        switch (herramientaSeleccionada){
+        switch (herramientas1.formaElegida){
             case 0:
                 //Método para dibujar con el ratón
                 bufferGraphics.setColor(panelColores1.colorSeleccionado);
                 bufferGraphics.fillOval(evt.getX(), evt.getY(), 4, 4);
                  break;
-            case 1: miCirculo.dibujate(bufferGraphics, evt.getX());
-            break;
+            case 1: miCirculo.dibujate(bufferGraphics, evt.getX()); break;
+            case 5: miForma.dibujate(bufferGraphics, evt.getX(), evt.getY()); 
+                break;
         }
         repaint(0,0,1,1);
     }//GEN-LAST:event_LienzoMouseDragged
 
-    private void herramientas1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_herramientas1MousePressed
-        herramientaSeleccionada = 1; //Cambio a pintar circulos
-    }//GEN-LAST:event_herramientas1MousePressed
-
     private void LienzoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LienzoMousePressed
-        switch (herramientaSeleccionada){
+        switch (herramientas1.formaElegida){
             case 0: break;
             case 1: miCirculo = new Circulo(evt.getX(), evt.getY(), 1, 
-                    panelColores1.colorSeleccionado, 
-                    true); break;
+                    panelColores1.colorSeleccionado, false);
+                    miCirculo.dibujate(bufferGraphics, evt.getX());
+                break;
+            case 5: miForma = new Pentagono(evt.getX(), evt.getY(), 5, panelColores1.colorSeleccionado, false);
+                    miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                break;
         }
     }//GEN-LAST:event_LienzoMousePressed
 
