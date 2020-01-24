@@ -6,12 +6,16 @@
 package codigo;
 
 import codigo.formas.Circulo;
+import codigo.formas.Cuadrado;
 import codigo.formas.Forma;
+import codigo.formas.Estrella;
 import codigo.formas.Pentagono;
+import codigo.formas.Triangulo;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+
 
 /**
  *
@@ -19,12 +23,13 @@ import java.awt.image.BufferedImage;
  */
 public class VentanaPaint extends javax.swing.JFrame {
 
-    BufferedImage buffer = null;
+    BufferedImage buffer, buffer2 = null;
     
-    Graphics2D bufferGraphics, jpanelGraphics = null;
+    Graphics2D bufferGraphics, bufferGraphics2, jpanelGraphics = null;
     
     Circulo miCirculo = null;
-    Forma miForma = null;
+    
+    Forma miForma = new Forma(-1,-1,1,Color.white,false); //para que la forma no de error
     
     /**
      * Creates new form VentanaPaint
@@ -37,13 +42,18 @@ public class VentanaPaint extends javax.swing.JFrame {
     private void inicializaBuffers(){
         //Creo una imagen del mismo ancho y alto que el Lienzo (jPanel1)
         buffer = (BufferedImage) Lienzo.createImage(Lienzo.getWidth(), Lienzo.getHeight());
+        buffer2 = (BufferedImage) Lienzo.createImage(Lienzo.getWidth(), Lienzo.getHeight());
         
         //Creo una imagen modificable
         bufferGraphics = buffer.createGraphics();
+        bufferGraphics2 = buffer2.createGraphics();
         
         //Inicializo el buffer para que se pinte de blanco entero
         bufferGraphics.setColor(Color.WHITE);
         bufferGraphics.fillRect(0, 0, Lienzo.getWidth(), Lienzo.getHeight());
+        
+        bufferGraphics2.setColor(Color.WHITE);
+        bufferGraphics2.fillRect(0, 0, Lienzo.getWidth(), Lienzo.getHeight());
         
         //Enlazamos el Lienzo (jPanel1) con el jPanelGraphics
         jpanelGraphics = (Graphics2D) Lienzo.getGraphics();
@@ -80,6 +90,9 @@ public class VentanaPaint extends javax.swing.JFrame {
         Lienzo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 LienzoMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                LienzoMouseReleased(evt);
             }
         });
 
@@ -126,15 +139,16 @@ public class VentanaPaint extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LienzoMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LienzoMouseDragged
+        bufferGraphics.drawImage(buffer2, 0, 0, null);
         switch (herramientas1.formaElegida){
-            case 0:
-                //Método para dibujar con el ratón
-                bufferGraphics.setColor(panelColores1.colorSeleccionado);
-                bufferGraphics.fillOval(evt.getX(), evt.getY(), 4, 4);
-                 break;
-            case 1: miCirculo.dibujate(bufferGraphics, evt.getX()); break;
-            case 5: miForma.dibujate(bufferGraphics, evt.getX(), evt.getY()); 
-                break;
+            case 0: bufferGraphics2.setColor(panelColores1.colorSeleccionado);
+                    bufferGraphics2.fillOval(evt.getX(), evt.getY(), 4, 4);
+                    break;
+            case 1 : miCirculo.dibujate(bufferGraphics, evt.getX());break;
+            case 3 : miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());break;
+            case 4 : miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());break;
+            case 5 : miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());break;
+            case 256: miForma.dibujate(bufferGraphics, evt.getX(), evt.getY()); break;
         }
         repaint(0,0,1,1);
     }//GEN-LAST:event_LienzoMouseDragged
@@ -142,15 +156,36 @@ public class VentanaPaint extends javax.swing.JFrame {
     private void LienzoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LienzoMousePressed
         switch (herramientas1.formaElegida){
             case 0: break;
-            case 1: miCirculo = new Circulo(evt.getX(), evt.getY(), 1, 
-                    panelColores1.colorSeleccionado, false);
-                    miCirculo.dibujate(bufferGraphics, evt.getX());
-                break;
-            case 5: miForma = new Pentagono(evt.getX(), evt.getY(), 5, panelColores1.colorSeleccionado, false);
-                    miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
-                break;
+            case 1 : miCirculo = new Circulo(evt.getX(), evt.getY(), 1, panelColores1.colorSeleccionado ,herramientas1.relleno);
+                     miCirculo.dibujate(bufferGraphics, evt.getX());
+                    break;
+                    
+            case 3 : miForma = new Triangulo(evt.getX(), evt.getY(), 3, panelColores1.colorSeleccionado, herramientas1.relleno);
+                     miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                    break;
+                    
+            case 4 : miForma = new Cuadrado(evt.getX(), evt.getY(), 4, panelColores1.colorSeleccionado, herramientas1.relleno);
+                     miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                    break;
+                    
+            case 5 : miForma = new Pentagono(evt.getX(), evt.getY(), 5, panelColores1.colorSeleccionado , herramientas1.relleno);
+                     miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                    break;  
+                    
+            case 256 : miForma = new Estrella(evt.getX(), evt.getY(), 256, panelColores1.colorSeleccionado , herramientas1.relleno);
+                     miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                    break; 
         }
     }//GEN-LAST:event_LienzoMousePressed
+
+    private void LienzoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LienzoMouseReleased
+        miForma.dibujate(bufferGraphics2, evt.getX(), evt.getY());
+        
+        //si es el círculo lo dibuja sobre el buffer2
+        if (herramientas1.formaElegida == 1){
+            miCirculo.dibujate(bufferGraphics2, evt.getX());
+        }
+    }//GEN-LAST:event_LienzoMouseReleased
 
     /**
      * @param args the command line arguments
