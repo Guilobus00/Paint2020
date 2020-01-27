@@ -5,6 +5,7 @@
  */
 package codigo;
 
+import codigo.formas.DibujoLibre;
 import codigo.formas.Circulo;
 import codigo.formas.Cuadrado;
 import codigo.formas.Forma;
@@ -28,6 +29,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     Graphics2D bufferGraphics, bufferGraphics2, jpanelGraphics = null;
     
     Circulo miCirculo = null;
+    DibujoLibre dibujoLibre = null;
     
     Forma miForma = new Forma(-1,-1,1,Color.white,false); //para que la forma no de error
     
@@ -141,8 +143,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     private void LienzoMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LienzoMouseDragged
         bufferGraphics.drawImage(buffer2, 0, 0, null);
         switch (herramientas1.formaElegida){
-            case 0: bufferGraphics2.setColor(panelColores1.colorSeleccionado);
-                    bufferGraphics2.fillOval(evt.getX(), evt.getY(), 4, 4);
+            case 0: dibujoLibre.dibujate (bufferGraphics2, evt.getX(), evt.getY());
                     break;
             case 1 : miCirculo.dibujate(bufferGraphics, evt.getX());break;
             case 3 : miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());break;
@@ -155,7 +156,9 @@ public class VentanaPaint extends javax.swing.JFrame {
 
     private void LienzoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LienzoMousePressed
         switch (herramientas1.formaElegida){
-            case 0: break;
+            case 0: dibujoLibre = new DibujoLibre(evt.getX(), evt.getY(), panelColores1.colorSeleccionado);
+                    dibujoLibre.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                    break;
             case 1 : miCirculo = new Circulo(evt.getX(), evt.getY(), 1, panelColores1.colorSeleccionado ,herramientas1.relleno);
                      miCirculo.dibujate(bufferGraphics, evt.getX());
                     break;
