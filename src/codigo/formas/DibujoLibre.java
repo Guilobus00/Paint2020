@@ -19,7 +19,7 @@ public class DibujoLibre extends Polygon {
     public Color color = null;
     public int x = 0;
     public int y = 0;
-    Stroke stroke = new BasicStroke(4f);
+    Stroke stroke = new BasicStroke();
     public DibujoLibre (int posX, int posY, Color _color){
         this.x = posX;
         this.y = posY;
