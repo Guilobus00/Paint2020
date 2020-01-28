@@ -12,6 +12,7 @@ import codigo.formas.Forma;
 import codigo.formas.Estrella;
 import codigo.formas.Pentagono;
 import codigo.formas.Triangulo;
+import codigo.formas.creaRecta;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -33,6 +34,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     
     Circulo miCirculo = null;
     DibujoLibre dibujoLibre = null;
+    creaRecta recta = null;
     
     Forma miForma = new Forma(-1,-1,1,Color.white,false); //para que la forma no de error
     
@@ -249,6 +251,7 @@ public class VentanaPaint extends javax.swing.JFrame {
             case 3 : miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());break;
             case 4 : miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());break;
             case 5 : miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());break;
+            case 6 : recta.dibujate(bufferGraphics, evt.getX(), evt.getY()); break;
             case 256: miForma.dibujate(bufferGraphics, evt.getX(), evt.getY()); break;
         }
         repaint(0,0,1,1);
@@ -259,6 +262,7 @@ public class VentanaPaint extends javax.swing.JFrame {
             case 0: dibujoLibre = new DibujoLibre(evt.getX(), evt.getY(), panelColores1.colorSeleccionado);
                     dibujoLibre.dibujate(bufferGraphics, evt.getX(), evt.getY());
                     break;
+                    
             case 1 : miCirculo = new Circulo(evt.getX(), evt.getY(), 1, panelColores1.colorSeleccionado ,herramientas1.relleno);
                      miCirculo.dibujate(bufferGraphics, evt.getX());
                     break;
@@ -275,6 +279,10 @@ public class VentanaPaint extends javax.swing.JFrame {
                      miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
                     break;  
                     
+            case 6 :recta = new creaRecta(evt.getX(), evt.getY(), panelColores1.colorSeleccionado);
+                    recta.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                    break;
+                    
             case 256 : miForma = new Estrella(evt.getX(), evt.getY(), 256, panelColores1.colorSeleccionado , herramientas1.relleno);
                      miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
                     break; 
@@ -289,6 +297,38 @@ public class VentanaPaint extends javax.swing.JFrame {
             miCirculo.dibujate(bufferGraphics2, evt.getX());
         }
     }//GEN-LAST:event_LienzoMouseReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jDialog1.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jDialog1.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jDialog1.setVisible(false);
+        panelColores1.colorSeleccionado = jColorChooser1.getColor();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int seleccion = jFileChooser1.showSaveDialog(this);
+        if (seleccion == jFileChooser1.APPROVE_OPTION){
+            //Si entra aquí es porque el usuario ha pulsado en "guardar"
+            File fichero = jFileChooser1.getSelectedFile();
+            String nombre = fichero.getName();
+            String extension = nombre.substring(nombre.lastIndexOf('.')+1, nombre.length());
+            if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png"))
+            try{
+                ImageIO.write(buffer, "png", fichero);
+            }
+            catch (IOException e){
+            }
+        }
+        else{
+            //Mensaje de extensión no válida
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         jDialog1.setVisible(true);
