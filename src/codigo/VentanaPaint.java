@@ -330,37 +330,6 @@ public class VentanaPaint extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jDialog1.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jDialog1.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jDialog1.setVisible(false);
-        panelColores1.colorSeleccionado = jColorChooser1.getColor();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        int seleccion = jFileChooser1.showSaveDialog(this);
-        if (seleccion == jFileChooser1.APPROVE_OPTION){
-            //Si entra aquí es porque el usuario ha pulsado en "guardar"
-            File fichero = jFileChooser1.getSelectedFile();
-            String nombre = fichero.getName();
-            String extension = nombre.substring(nombre.lastIndexOf('.')+1, nombre.length());
-            if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png"))
-            try{
-                ImageIO.write(buffer, "png", fichero);
-            }
-            catch (IOException e){
-            }
-        }
-        else{
-            //Mensaje de extensión no válida
-        }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
