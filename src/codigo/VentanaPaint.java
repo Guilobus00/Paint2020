@@ -296,6 +296,9 @@ public class VentanaPaint extends javax.swing.JFrame {
         if (herramientas1.formaElegida == 1){
             miCirculo.dibujate(bufferGraphics2, evt.getX());
         }
+        else if (herramientas1.formaElegida == 6){
+            recta.dibujate(bufferGraphics2, evt.getX(), evt.getY());
+        }
     }//GEN-LAST:event_LienzoMouseReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
