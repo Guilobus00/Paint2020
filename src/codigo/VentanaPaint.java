@@ -13,6 +13,7 @@ import codigo.formas.Estrella;
 import codigo.formas.Pentagono;
 import codigo.formas.Triangulo;
 import codigo.formas.creaRecta;
+import com.sun.org.apache.bcel.internal.generic.D2F;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -181,7 +182,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         );
         LienzoLayout.setVerticalGroup(
             LienzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 229, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
 
         jButton1.setText("Más colores");
@@ -230,9 +231,9 @@ public class VentanaPaint extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Lienzo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(herramientas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(herramientas1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                    .addComponent(Lienzo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelColores1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -247,12 +248,27 @@ public class VentanaPaint extends javax.swing.JFrame {
         switch (herramientas1.formaElegida){
             case 0: dibujoLibre.dibujate (bufferGraphics2, evt.getX(), evt.getY());
                     break;
+                    
             case 1 : miCirculo.dibujate(bufferGraphics, evt.getX());break;
-            case 3 : miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());break;
-            case 4 : miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());break;
-            case 5 : miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());break;
-            case 6 : recta.dibujate(bufferGraphics, evt.getX(), evt.getY()); break;
-            case 256: miForma.dibujate(bufferGraphics, evt.getX(), evt.getY()); break;
+            
+            case 3 : miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                    break;
+            
+            case 4 : miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                    break;
+            
+            case 5 : miForma.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                    break;
+            
+            case 6 : recta.dibujate(bufferGraphics, evt.getX(), evt.getY()); 
+                    break;
+            
+            case 11 : dibujoLibre.dibujate(bufferGraphics2, evt.getX(), evt.getY()); 
+                    break;
+            
+            case 256: miForma.dibujate(bufferGraphics, evt.getX(), evt.getY()); 
+                    break;
+            
         }
         repaint(0,0,1,1);
     }//GEN-LAST:event_LienzoMouseDragged
@@ -281,6 +297,10 @@ public class VentanaPaint extends javax.swing.JFrame {
                     
             case 6 :recta = new creaRecta(evt.getX(), evt.getY(), panelColores1.colorSeleccionado);
                     recta.dibujate(bufferGraphics, evt.getX(), evt.getY());
+                    break;
+                    
+            case 11 :dibujoLibre = new DibujoLibre(evt.getX(), evt.getY(), Color.WHITE);
+                    dibujoLibre.dibujate(bufferGraphics, evt.getX(), evt.getY());
                     break;
                     
             case 256 : miForma = new Estrella(evt.getX(), evt.getY(), 256, panelColores1.colorSeleccionado , herramientas1.relleno);
