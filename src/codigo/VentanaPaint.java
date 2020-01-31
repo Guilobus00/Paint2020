@@ -101,6 +101,7 @@ public class VentanaPaint extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         jButton2.setText("Cancelar");
@@ -211,6 +212,14 @@ public class VentanaPaint extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Cargar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
@@ -353,7 +362,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         int seleccion = jFileChooser1.showSaveDialog(this);
         if (seleccion == jFileChooser1.APPROVE_OPTION){
-            //Si entra aquí es porque el usuario ha pulsado en "guardar"
+            //Si entra aquí es porque el usuario ha pulsado en "Guardar"
             File fichero = jFileChooser1.getSelectedFile();
             String nombre = fichero.getName();
             String extension = nombre.substring(nombre.lastIndexOf('.')+1, nombre.length());
@@ -373,6 +382,15 @@ public class VentanaPaint extends javax.swing.JFrame {
         grosor = Integer.toString(jSlider2.getValue() / 5) + "f";
         goma = Integer.toString(jSlider2.getValue() / 5) + "f";
     }//GEN-LAST:event_jSlider2StateChanged
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        int seleccion = jFileChooser1.showOpenDialog(this);
+        if (seleccion == jFileChooser1.APPROVE_OPTION){
+            //Si entra aquí es porque el usuario ha pulsado en "Cargar"
+            
+        }
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
 
     /**
@@ -424,6 +442,7 @@ public class VentanaPaint extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JSlider jSlider2;
     private codigo.PanelColores panelColores1;
     // End of variables declaration//GEN-END:variables
