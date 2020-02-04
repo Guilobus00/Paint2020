@@ -407,7 +407,8 @@ public class VentanaPaint extends javax.swing.JFrame {
     //Tercera parte del botón, mostrar archivo.
                 if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")){
                     try{
-                        buffer = ImageIO.read (fichero);
+                        bufferGraphics.drawImage(ImageIO.read (fichero),0, 0 , null);
+                        bufferGraphics2.drawImage(ImageIO.read (fichero),0, 0 , null);
                         repaint(0, 0, 1, 1);
                     } catch (IOException ex){
                 }
